@@ -6,13 +6,13 @@
 #    By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/07 11:17:35 by sdiaz-ru          #+#    #+#              #
-#    Updated: 2023/03/07 17:23:02 by sdiaz-ru         ###   ########.fr        #
+#    Updated: 2023/03/09 12:51:29 by sdiaz-ru         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-SERVER_NAME	=	server.out
-CLIENT_NAME	=	client.out
+SERVER_NAME	=	server
+CLIENT_NAME	=	client
 
 CFLAGS			=	-Wall -Werror -Wextra
 RM				=	rm -fr
@@ -28,7 +28,7 @@ $(SERVER_NAME):	make_printf
 			@gcc $(CFLAGS) server.c -o $(SERVER_NAME) $(DIR_MAKE_PRINTF)/libftprintf.a
 			@echo Server compilado
 
-$(CLIENT_NAME):	$(MAKE)
+$(CLIENT_NAME):	make_printf
 			@gcc $(CFLAGS) client.c -o $(CLIENT_NAME) $(DIR_MAKE_PRINTF)/libftprintf.a
 			@echo Client compilado
 
