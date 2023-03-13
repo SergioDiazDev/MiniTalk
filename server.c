@@ -6,7 +6,7 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 15:01:14 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/09 11:02:01 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:23:22 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@
 
 void	respuesta(int x);
 
-int	main()
+int	main(void)
 {
-	
 	ft_printf("PID Padre: %d\n", getpid());
-	
-	while (42) {
+	while (42)
+	{
 		signal(SIGUSR1, respuesta);
 	}
 }
