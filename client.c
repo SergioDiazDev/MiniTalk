@@ -6,7 +6,7 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:18:20 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/14 16:02:34 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:19:55 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,18 @@
 
 void	respuesta(int x);
 long	ft_atoi_pid(char *str);
-char	*ft_decabin(int dec, char *bin);
+int		*ft_decabin(int dec, int *bin);
 
 int	main(int argc, char **argv)
 {
 	int		pid_server;
 	int		pid_client;
-	char	*bin;
+	int		*bin;
 	int		i;
 	int		j;
 	char	*aux;
 
-	bin = malloc(sizeof(char) * 9);
-	bin[8] = 0;
+	bin = malloc(sizeof(int) * 8);
 	if (argc != 2)
 	{
 		ft_printf("Introduce el pid\n");
@@ -39,22 +38,26 @@ int	main(int argc, char **argv)
 	pid_server = ft_atoi_pid(argv[1]);
 	pid_client = getpid();
 	aux = ft_itoa(pid_client);
-	//ft_printf("Pid Cliente: %d", pid_client);
+	ft_printf("Pid Server: %d\n", pid_server);
+	ft_printf("Pid Cliente: %d\n", pid_client);
 	i = -1;
 	while (aux[++i])
 	{
 		ft_decabin(aux[i], bin);
 		j = -1;
 		//ft_printf("Bin = (%d)", bin[i]);
-		while (++j <= 8)
+		while (++j <= 7)
 		{
-			usleep(1000);
-			if (bin[j])
+			usleep(500);
+			if (bin[j] == 0)
 				kill(pid_server, SIGUSR1);
 			else
 				kill(pid_server, SIGUSR2);
 		}
 	}
+	signal(SIGUSR1, respuesta);
+	while (42)
+	;
 	return (0);
 }
 
@@ -73,29 +76,30 @@ long	ft_atoi_pid(char *str)
 	num = 0;
 	while (str[i])
 	{
-		num += (str[i]);
+		num += (str[i] - '0');
 		num *= 10;
 		i++;
 	}
 	return (num / 10);
 }
 
-char	*ft_decabin(int dec, char *bin)
+int		*ft_decabin(int dec, int *bin)
 {
 	int		i;
 	int		bit;
 	int		aux;
 
+	dec -= '0';
 	bit = 128;
 	i = -1;
 	while (++i != 8)
 	{
-		if (dec)
+		if (dec > 0)
 			aux = (dec / bit);
 		else
 			aux = 0;
-		bin[i] = (dec % bit) - '0';
-		ft_printf("Bin[%d] = %c/n",i, bin[i]);
+		bin[i] = aux;
+		ft_printf("%d", aux);
 		if (aux && dec)
 			dec -= bit;
 		if (bit)
