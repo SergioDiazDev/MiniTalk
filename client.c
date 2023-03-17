@@ -6,7 +6,7 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:18:20 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/17 13:19:55 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:12:03 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 		//ft_printf("Bin = (%d)", bin[i]);
 		while (++j <= 7)
 		{
-			usleep(500);
+			usleep(50);
 			if (bin[j] == 0)
 				kill(pid_server, SIGUSR1);
 			else
@@ -64,7 +64,8 @@ int	main(int argc, char **argv)
 void	respuesta(int x)
 {
 	(void) x;
-	ft_printf("Servidor a la espera :)\n");
+	ft_printf("\nServidor a la espera :)\n");
+	exit(-1);
 }
 
 long	ft_atoi_pid(char *str)
