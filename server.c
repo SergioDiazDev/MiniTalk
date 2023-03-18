@@ -6,59 +6,39 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 15:01:14 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/18 11:36:30 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/18 13:34:58 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	g_flag = 2;
+siginfo_t *info;
 
 int	main(void)
 {
-	char	*bin;
-	int		pib_client;
-	int		i;
-
-	signal(SIGUSR1, respuesta);
-	signal(SIGUSR2, respuesta2);
-	i = 0;
-	bin = malloc(sizeof(char) * 9);
-	bin[8] = 0;
-	ft_printf("PID Padre: %d\n", getpid());
-	while (i < 40)
+	int			pib_client;
+	struct sigaction sa;
+	//sa.__sigaction_u.__sa_sigaction(SIGUSR1, info,);
+	sa.__sigaction_u.__sa_handler = signal_exit;
+	signal(SIGUSR1, sa.__sigaction_u.__sa_handler);
+	while (42)
 	{
-		if (g_flag == 0)
-		{
-			bin[i] = '0';
-			i++;
-			g_flag = 2;
-		}
-		else if (g_flag == 1)
-		{
-			bin[i] = '1';
-			i++;
-			g_flag = 2;
-		}
+		ft_printf("PID_SERVER: %d\n",getpid());
 	}
-	pib_client = binadec(bin);
-	ft_printf("Pid Client: %d\n", pib_client);
-	ft_printf("Pid Client: %s\n", bin);
 	kill(pib_client, SIGUSR1);
 }
 
-void	respuesta(int x)
+void	signal_exit(int x)
 {
-	(void)x;
-	ft_printf("PID Respuesta: 0\n");
-	g_flag = 0;
+	ft_printf("PID Respuesta: %d\n", x);
+	ft_printf("%s\n", info->si_pid);
+	exit(0);
 }
 
 void	respuesta2(int x)
 {
 	(void)x;
 	ft_printf("PID Respuesta: 1\n");
-	g_flag = 1;
 }
 
 int	binadec(char *bin)
