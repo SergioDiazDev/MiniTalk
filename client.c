@@ -6,24 +6,15 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:18:20 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/17 15:12:03 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/18 11:31:04 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "ft_printf/ft_printf.h"
-
-void	respuesta(int x);
-long	ft_atoi_pid(char *str);
-int		*ft_decabin(int dec, int *bin);
+#include "minitalk.h"
 
 int	main(int argc, char **argv)
 {
 	int		pid_server;
-	int		pid_client;
 	int		*bin;
 	int		i;
 	int		j;
@@ -31,21 +22,14 @@ int	main(int argc, char **argv)
 
 	bin = malloc(sizeof(int) * 8);
 	if (argc != 2)
-	{
-		ft_printf("Introduce el pid\n");
-		return (0);
-	}
+		return (ft_printf("Introduce el pid\n"), 0);
 	pid_server = ft_atoi_pid(argv[1]);
-	pid_client = getpid();
-	aux = ft_itoa(pid_client);
-	ft_printf("Pid Server: %d\n", pid_server);
-	ft_printf("Pid Cliente: %d\n", pid_client);
+	aux = ft_itoa(getpid());
 	i = -1;
 	while (aux[++i])
 	{
 		ft_decabin(aux[i], bin);
 		j = -1;
-		//ft_printf("Bin = (%d)", bin[i]);
 		while (++j <= 7)
 		{
 			usleep(50);
@@ -57,7 +41,7 @@ int	main(int argc, char **argv)
 	}
 	signal(SIGUSR1, respuesta);
 	while (42)
-	;
+		;
 	return (0);
 }
 
@@ -84,7 +68,7 @@ long	ft_atoi_pid(char *str)
 	return (num / 10);
 }
 
-int		*ft_decabin(int dec, int *bin)
+int	*ft_decabin(int dec, int *bin)
 {
 	int		i;
 	int		bit;
