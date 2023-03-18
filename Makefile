@@ -6,7 +6,7 @@
 #    By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/07 11:17:35 by sdiaz-ru          #+#    #+#              #
-#    Updated: 2023/03/09 12:51:29 by sdiaz-ru         ###   ########.fr        #
+#    Updated: 2023/03/18 11:24:50 by sdiaz-ru         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,11 @@
 SERVER_NAME	=	server
 CLIENT_NAME	=	client
 
-CFLAGS			=	-Wall -Werror -Wextra
-RM				=	rm -fr
+CFLAGS		=	-Wall -Werror -Wextra
+RM			=	rm -fr
+INCLUDE		=	minitalk.h
 
-DIR_MAKE_PRINTF	=	./ft_printf/
+DIR_MAKE_PRINTF	=	./ft_printf
 
 all: $(SERVER_NAME) $(CLIENT_NAME)
 
