@@ -6,7 +6,7 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:18:20 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/18 12:33:34 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/19 13:33:50 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (ft_printf("Introduce el pid\n"), 0);
 	pid_server = ft_atoi_pid(argv[1]);
-
 	kill(pid_server, SIGUSR1);
-	//Recibida respuesta
 	signal(SIGUSR1, respuesta);
 	while (42)
 		;
