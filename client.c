@@ -6,7 +6,7 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:18:20 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/19 23:20:23 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/19 23:34:07 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ int	main(int argc, char **argv)
 	while (argv[2][++i])
 	{
 		count = -1;
-		//ft_printf("i=(%d)\n",i);
 		while (++count != 8)
 		{
-			if((argv[2][i] >> count) & 1)
+			if ((argv[2][i] >> count) & 1)
 				kill(pid_server, SIGUSR2);
 			else
 				kill(pid_server, SIGUSR1);
@@ -42,7 +41,6 @@ int	main(int argc, char **argv)
 void	respuesta(int x)
 {
 	(void) x;
-	//ft_printf("\nPing%d\n", info->si_pid);
 }
 
 long	ft_atoi_pid(char *str)
@@ -59,29 +57,4 @@ long	ft_atoi_pid(char *str)
 		i++;
 	}
 	return (num / 10);
-}
-
-int	*ft_decabin(int dec, int *bin)
-{
-	int		i;
-	int		bit;
-	int		aux;
-
-	dec -= '0';
-	bit = 128;
-	i = -1;
-	while (++i != 8)
-	{
-		if (dec > 0)
-			aux = (dec / bit);
-		else
-			aux = 0;
-		bin[i] = aux;
-		ft_printf("%d", aux);
-		if (aux && dec)
-			dec -= bit;
-		if (bit)
-			bit /= 2;
-	}
-	return (bin);
 }
