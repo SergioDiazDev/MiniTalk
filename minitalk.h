@@ -6,7 +6,7 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:15:00 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/19 13:33:11 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/19 20:01:35 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 //Server
 void	signal_exit(int x, siginfo_t *info, void *param);
-void	respuesta2(int x);
 //Client
 void	respuesta(int x);
 long	ft_atoi_pid(char *str);

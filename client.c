@@ -6,41 +6,45 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:18:20 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/19 16:28:31 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/19 20:18:34 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int		pid_server;
-
 int	main(int argc, char **argv)
 {
-	signal(SIGUSR1, respuesta);
-	signal(SIGUSR2, respuesta2);
+	int					count;
+	int					i;
+	int					pid_server;
 
-	if (argc != 2)
-		return (ft_printf("Introduce el pid\n"), 0);
+	if (argc != 3)
+		return (ft_printf("Error, introduce el PID y el mensaje.\n"));
+	signal(SIGUSR1, respuesta);
 	pid_server = ft_atoi_pid(argv[1]);
-	kill(pid_server, SIGUSR1);
-	while (42)
-		pause();
+	//kill(pid_server, SIGUSR1);
+	i = -1;
+	while (argv[2][++i])
+	{
+		count = -1;
+		//ft_printf("i=(%d)\n",i);
+		while (++count != 8)
+		{
+			if(!((argv[2][i] >> count) & 1))
+				kill(pid_server, SIGUSR1);
+			else
+				kill(pid_server, SIGUSR2);
+			usleep(50);
+			//pause();
+		}
+	}
 	return (0);
 }
 
 void	respuesta(int x)
 {
 	(void) x;
-	kill(pid_server, SIGUSR1);
-	ft_printf("\nPing\n");
-}
-
-void	respuesta2(int x)
-{
-	(void) x;
-	ft_printf("\nFin\n");
-	exit(-1);
-	
+	//ft_printf("\nPing%d\n", info->si_pid);
 }
 
 long	ft_atoi_pid(char *str)
