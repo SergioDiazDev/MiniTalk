@@ -6,7 +6,7 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:18:20 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/19 20:18:34 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/19 23:20:23 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error, introduce el PID y el mensaje.\n"));
 	signal(SIGUSR1, respuesta);
 	pid_server = ft_atoi_pid(argv[1]);
-	//kill(pid_server, SIGUSR1);
 	i = -1;
 	while (argv[2][++i])
 	{
@@ -30,12 +29,11 @@ int	main(int argc, char **argv)
 		//ft_printf("i=(%d)\n",i);
 		while (++count != 8)
 		{
-			if(!((argv[2][i] >> count) & 1))
-				kill(pid_server, SIGUSR1);
-			else
+			if((argv[2][i] >> count) & 1)
 				kill(pid_server, SIGUSR2);
-			usleep(50);
-			//pause();
+			else
+				kill(pid_server, SIGUSR1);
+			usleep(5000);
 		}
 	}
 	return (0);

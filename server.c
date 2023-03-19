@@ -55,6 +55,6 @@ void	signal_exit(int x, siginfo_t *info, void *param)
 		bit = 0;
 		byte = 0;
 	}
-	//kill(info->si_pid, SIGUSR1);
+	kill(info->si_pid, SIGUSR1);
 }
 
