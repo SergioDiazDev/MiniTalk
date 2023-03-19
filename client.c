@@ -6,31 +6,41 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:18:20 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/19 13:45:11 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/19 16:28:31 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
+int		pid_server;
+
 int	main(int argc, char **argv)
 {
-	int		pid_server;
+	signal(SIGUSR1, respuesta);
+	signal(SIGUSR2, respuesta2);
 
 	if (argc != 2)
 		return (ft_printf("Introduce el pid\n"), 0);
 	pid_server = ft_atoi_pid(argv[1]);
 	kill(pid_server, SIGUSR1);
-	signal(SIGUSR1, respuesta);
 	while (42)
-		;
+		pause();
 	return (0);
 }
 
 void	respuesta(int x)
 {
 	(void) x;
-	ft_printf("\nServidor a la espera :)\n");
+	kill(pid_server, SIGUSR1);
+	ft_printf("\nPing\n");
+}
+
+void	respuesta2(int x)
+{
+	(void) x;
+	ft_printf("\nFin\n");
 	exit(-1);
+	
 }
 
 long	ft_atoi_pid(char *str)

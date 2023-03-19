@@ -6,7 +6,7 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 15:01:14 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/19 13:56:08 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/19 16:29:45 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,33 @@ int	main(void)
 	sigaction(SIGUSR1, &sa, NULL);
 	ft_printf("PID_SERVER: %d\n", getpid());
 	while (42)
-		;
+		pause();
+
 }
 
 void	signal_exit(int x, siginfo_t *info, void *param)
 {
+	int i;
+
+	i = 33;
 	(void) param;
-	ft_printf("PID Respuesta: %d\n", x);
-	ft_printf("PID: %d\n", info->si_pid);
-	//Crear variable que se desactive al recibir SIGUSR2 y continue con SIGUSR
-	while ()
-	{
-		if (info->si_signo == SIGUSR1)
-		{
-			printf("0");
-		}
-		else if (info->si_signo == SIGUSR2)
-		{
-			printf("1");
-		}
-	}
-	kill(info->si_pid, SIGUSR1);
+	(void) x;
+	// ft_printf("PID_SERVER: %d\n", getpid());
+	// ft_printf("PID Respuesta: %d\n", x);
+	// ft_printf("PID: %d\n", info->si_pid);
 	
-	exit(0);
+	if (info->si_signo == SIGUSR1)
+	{
+		ft_printf("\nPong\n");
+		kill(info->si_pid, SIGUSR1);
+	}
+	else if (info->si_signo == SIGUSR2)
+	{
+		ft_printf("1\n");
+		kill(info->si_pid, SIGUSR1);
+	}
+
+	
 }
 
 void	respuesta2(int x)
