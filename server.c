@@ -6,14 +6,11 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 15:01:14 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/19 23:34:36 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/19 23:41:05 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-
-static unsigned char	g_byte = 0;
-static int				g_bit = 0;
 
 int	main(void)
 {
@@ -32,16 +29,19 @@ int	main(void)
 
 void	signal_exit(int x, siginfo_t *info, void *param)
 {
+	static unsigned char	byte = 0;
+	static int				bit = 0;
+
 	(void) param;
 	(void) info;
 	if (x == SIGUSR2)
-		g_byte += 1 << g_bit;
-	g_bit++;
-	if (g_bit == 8)
+		byte += 1 << bit;
+	bit++;
+	if (bit == 8)
 	{
-		write(1, &g_byte, 1);
-		g_bit = 0;
-		g_byte = 0;
+		write(1, &byte, 1);
+		bit = 0;
+		byte = 0;
 	}
 	kill(info->si_pid, SIGUSR1);
 }
