@@ -6,7 +6,7 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 15:01:14 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/19 23:41:05 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:22:49 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	main(void)
 	struct sigaction	signal1;
 
 	sigemptyset(&signal1.sa_mask);
-	signal1.sa_sigaction = signal_exit;
-	signal1.sa_flags = SA_SIGINFO | SA_RESTART;
+	signal1.sa_sigaction = handler_server;
+	signal1.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &signal1, NULL);
 	sigaction(SIGUSR2, &signal1, NULL);
 	ft_printf("PID_SERVER: %d\n", getpid());
@@ -27,13 +27,12 @@ int	main(void)
 	return (0);
 }
 
-void	signal_exit(int x, siginfo_t *info, void *param)
+void	handler_server(int x, siginfo_t *info, void *param)
 {
 	static unsigned char	byte = 0;
 	static int				bit = 0;
 
 	(void) param;
-	(void) info;
 	if (x == SIGUSR2)
 		byte += 1 << bit;
 	bit++;

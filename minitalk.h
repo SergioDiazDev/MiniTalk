@@ -6,7 +6,7 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:15:00 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/19 20:01:35 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:14:12 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@
 # include "ft_printf/ft_printf.h"
 
 //Server
-void	signal_exit(int x, siginfo_t *info, void *param);
+void	handler_server(int x, siginfo_t *info, void *param);
 //Client
-void	respuesta(int x);
+void	handler_client(int x);
 long	ft_atoi_pid(char *str);
-int		*ft_decabin(int dec, int *bin);
 #endif
