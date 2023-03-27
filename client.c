@@ -6,7 +6,7 @@
 /*   By: sdiaz-ru <sdiaz-ru@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:18:20 by sdiaz-ru          #+#    #+#             */
-/*   Updated: 2023/03/20 13:23:57 by sdiaz-ru         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:22:33 by sdiaz-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 				kill(pid_server, SIGUSR2);
 			else
 				kill(pid_server, SIGUSR1);
-			usleep(50000);
+			usleep(500000);
 		}
 	}
 	return (0);
